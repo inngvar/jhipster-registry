@@ -49,7 +49,7 @@ node {
         }
 
         stage('build docker image') {
-            sh "./gradlew buildDocker"
+            sh "./mvnw docker:build"
         }
     }
 }
