@@ -49,7 +49,7 @@ node {
         }
 
         stage('build docker image') {
-            sh "./mvnw docker:build"
+            sh "./mvnw dockerfile:build"
         }
     }
 }
