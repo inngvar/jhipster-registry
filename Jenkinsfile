@@ -17,6 +17,7 @@ node {
 
         stage('install tools') {
             sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v8.11.3 -DyarnVersion=v1.9.2"
+            sh "yarn global add node-gyp"
         }
 
         stage('yarn install') {
