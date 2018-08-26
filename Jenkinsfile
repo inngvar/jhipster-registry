@@ -47,5 +47,9 @@ node {
             sh "./mvnw verify -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
         }
+
+        stage('build docker image') {
+            sh "./gradlew buildDocker"
+        }
     }
 }
