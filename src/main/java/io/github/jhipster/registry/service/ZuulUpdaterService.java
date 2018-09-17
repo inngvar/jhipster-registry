@@ -55,9 +55,10 @@ public class ZuulUpdaterService {
                 String url = instanceInfos.getHomePageUrl();
                 log.debug("Checking instance {} - {} ", instanceId, url);
 
+                boolean isStripPrefix = Boolean.valueOf(instanceInfos.getMetadata().getOrDefault("isStripPrefix",String.valueOf(zuulProperties.isStripPrefix())));
                 ZuulRouteDTO route = new ZuulRouteDTO(instanceId, "/" +
                     application.getName().toLowerCase() + "/" + instanceId + "/**",
-                    null, url, zuulProperties.isStripPrefix(), zuulProperties.getRetryable(), null,
+                    null, url, isStripPrefix, zuulProperties.getRetryable(), null,
                     instanceInfos.getStatus().toString());
 
                 if (zuulProperties.getRoutes().containsKey(instanceId)) {
