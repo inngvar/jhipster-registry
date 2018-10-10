@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Updates Zuul proxies depending on available application instances.
- *
+ * <p>
  * This uses directly the Eureka server, so it only works with the Eureka option.
  */
 @Service
@@ -49,13 +49,13 @@ public class ZuulUpdaterService {
         for (Application application : applications) {
 
             for (InstanceInfo instanceInfos : application.getInstances()) {
-                if(!instanceInfos.getStatus().equals(InstanceInfo.InstanceStatus.UP) &&
+                if (!instanceInfos.getStatus().equals(InstanceInfo.InstanceStatus.UP) &&
                     !instanceInfos.getStatus().equals(InstanceInfo.InstanceStatus.STARTING)) continue;
                 String instanceId = instanceInfos.getId();
                 String url = instanceInfos.getHomePageUrl();
-                log.debug("Checking instance {} - {} ", instanceId, url);
-
-                boolean isStripPrefix = Boolean.valueOf(instanceInfos.getMetadata().getOrDefault("isStripPrefix",String.valueOf(zuulProperties.isStripPrefix())));
+                boolean isStripPrefix = Boolean.valueOf(instanceInfos.getMetadata().getOrDefault("strip-prefix", String.valueOf(zuulProperties.isStripPrefix())));
+                instanceInfos.getMetadata().entrySet().stream().forEach(entry -> log.debug("instance metadata key={} value={}", entry.getKey(), entry.getValue()));
+                log.debug("Checking instance {} - {}, stripPrefix={}", instanceId, url, isStripPrefix);
                 ZuulRouteDTO route = new ZuulRouteDTO(instanceId, "/" +
                     application.getName().toLowerCase() + "/" + instanceId + "/**",
                     null, url, isStripPrefix, zuulProperties.getRetryable(), null,
