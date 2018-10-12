@@ -68,7 +68,6 @@ management:
 # Documentation at:
 # https://github.com/Netflix/eureka/blob/master/eureka-core/src/main/java/com/netflix/eureka/EurekaServerConfig.java
 # ===================================================================
-zuul:
 
 eureka:
     instance:
