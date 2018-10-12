@@ -35,13 +35,17 @@ logging:
     file: target/jhipster-registry.log
 
 ribbon:
+    ReadTimeout: 60000
+    ConnectionTimeout: 60000
     eureka:
         enabled: true
 
 zuul:
     prefix: /services/ #slash before and after
     strip-prefix: true
-
+    host:
+        connect-timeout-millis: 60000
+        socket-timeout-millis: 60000
 management:
     endpoints:
         web:
@@ -64,6 +68,7 @@ management:
 # Documentation at:
 # https://github.com/Netflix/eureka/blob/master/eureka-core/src/main/java/com/netflix/eureka/EurekaServerConfig.java
 # ===================================================================
+zuul:
 
 eureka:
     instance:
